@@ -111,9 +111,17 @@
       /* keep same grid logic, just scale */
       .buttons {
         order: 2;
-        gap:24px;
-        padding:16px;
-      }
+        padding: 16px;
+
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+
+        row-gap: 14px;          /* vertical spacing */
+        column-gap: 24px;      /* horizontal spacing */
+
+        align-content: start;  /* STOP vertical stretch */
+        justify-items: center;
+    }
 
       .buttons button {
         width:16px;
@@ -132,6 +140,7 @@
         width:100vw;
         height:auto;
         aspect-ratio:1000 / 1000;
+        margin-bottom: 45px;
       }
 
       .placeholder-circle {
