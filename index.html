@@ -17,29 +17,33 @@
       overflow:hidden;
     }
     .buttons {
-    display:grid;
-    grid-template-columns:repeat(4, 1fr);
-    gap:40px;
-    flex:1;
-    place-items:center;
-    padding:20px;
-    max-width:200px;
-    margin:0 auto;
+      display:grid;
+      grid-template-columns:repeat(4, 1fr);
+      gap:20px;
+      flex:1;
+      justify-content:center;
+      align-items:center;
+      align-content:center;
+      padding:20px;
+      max-width:200px;
+      margin:0 auto;
     }
     .buttons button {
-      width:20px;
-      height:20px;
+      width:30px;
+      height:30px;
       cursor:pointer;
       border:2px solid;
       border-radius:50%;
-      transition:all 0.5s;
+      transition:all 0.2s;
       padding:0;
       background:transparent;
-      box-sizing:border-box;
+      margin:auto;
+      justify-self:center;
+      align-self:center;
     }
     .buttons button.active {
-      width:35px;
-      height:35px;
+      width:40px;
+      height:40px;
       border-width:4px;
     }
     .buttons button:nth-child(1) { border-color:#B8860B; }
@@ -78,13 +82,39 @@
     .placeholder-circle {
       width:60vh;
       height:60vh;
-      border:8px solid #000;
+      border:3px solid #000;
       border-radius:50%;
       position:absolute;
       z-index:10;
     }
     .placeholder-circle.hidden {
       display:none;
+    }
+
+    /* MOBILE STYLES */
+    @media (max-width: 768px) {
+      body {
+        flex-direction:column;
+        justify-content:flex-start;
+      }
+      .video-holder {
+        width:100vw;
+        height:auto;
+        aspect-ratio:1000/1334;
+        flex-shrink:0;
+        order:1;
+      }
+      .buttons {
+        order:2;
+        flex:1;
+        max-width:none;
+        width:100%;
+        padding:30px 20px;
+      }
+      .placeholder-circle {
+        width:50vw;
+        height:50vw;
+      }
     }
   </style>
 </head>
@@ -129,19 +159,16 @@
     btn.addEventListener('click', () => {
       const index = btn.dataset.index;
       
-      // Hide placeholder on first click
       if(!hasStarted) {
         placeholder.classList.add('hidden');
         hasStarted = true;
       }
       
-      // Store current playback time from the active video
       const activeVideo = document.querySelector('.video-holder video.active');
       if(activeVideo) {
         currentTime = activeVideo.currentTime;
       }
       
-      // Switch videos
       videos.forEach((vid, i) => {
         vid.classList.toggle('active', i == index);
         if(i == index){
@@ -152,7 +179,6 @@
         }
       });
       
-      // Highlight the active button
       buttons.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
     });
